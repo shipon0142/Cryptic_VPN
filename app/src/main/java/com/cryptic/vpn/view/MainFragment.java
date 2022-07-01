@@ -24,14 +24,23 @@ import com.bumptech.glide.Glide;
 import com.cryptic.vpn.CheckInternetConnection;
 import com.cryptic.vpn.R;
 import com.cryptic.vpn.SharedPreference;
+import com.cryptic.vpn.databinding.FragmentMain2Binding;
 import com.cryptic.vpn.databinding.FragmentMainBinding;
 import com.cryptic.vpn.interfaces.ChangeServer;
 import com.cryptic.vpn.model.Server;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import de.blinkt.openvpn.OpenVpnApi;
 import de.blinkt.openvpn.core.OpenVPNService;
@@ -44,26 +53,75 @@ public class MainFragment extends Fragment implements View.OnClickListener, Chan
 
     private Server server;
     private CheckInternetConnection connection;
+    private InterstitialAd interstitialAd;
 
     private OpenVPNThread vpnThread = new OpenVPNThread();
     private OpenVPNService vpnService = new OpenVPNService();
     boolean vpnStart = false;
     private SharedPreference preference;
 
-    private FragmentMainBinding binding;
+    private FragmentMain2Binding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main2, container, false);
 
         View view = binding.getRoot();
         initializeAll();
 
         return view;
     }
+    private void showInterstitial() {
+        MobileAds.initialize(getContext(), new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {}
+        });
+        interstitialAd = new InterstitialAd(getContext());
+        interstitialAd.setAdUnitId(getString(R.string.interstitial_unit_id));
+        interstitialAd.setAdListener(
+                new AdListener() {
+                    @Override
+                    public void onAdLoaded() {
+                        interstitialAd.show();
+                        // setView();
 
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(LoadAdError loadAdError) {
+                        if (vpnStart) {
+                            confirmDisconnect();
+                        }else {
+                            prepareVpn();
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onAdClosed() {
+                        if (vpnStart) {
+                            confirmDisconnect();
+                        }else {
+                            prepareVpn();
+                        }
+
+                    }
+                });
+        AdRequest adRequest = new AdRequest.Builder().build();
+        interstitialAd.loadAd(adRequest);
+       /* if (interstitialAd != null && interstitialAd.isLoaded()) {
+            interstitialAd.show();
+        }
+        else {
+            if (!interstitialAd.isLoading() && !interstitialAd.isLoaded()) {
+                AdRequest adRequest = new AdRequest.Builder().build();
+                interstitialAd.loadAd(adRequest);
+            }
+        }*/
+    }
     /**
      * Initialize all variable and object
      */
@@ -96,11 +154,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Chan
         switch (v.getId()) {
             case R.id.vpnBtn:
                 // Vpn is running, user would like to disconnect current connection.
-                if (vpnStart) {
-                    confirmDisconnect();
-                }else {
-                    prepareVpn();
-                }
+              showInterstitial();
         }
     }
 

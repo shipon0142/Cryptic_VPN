@@ -233,7 +233,7 @@
     <string name="minidump_generated">OpenVPN crashed unexpectedly. Please consider using the send Minidump option in the main menu</string>
     <string name="send_minidump">Send Minidump to developer</string>
     <string name="send_minidump_summary">Sends debugging information about last crash to developer</string>
-    <string name="notifcation_title">CakeVPN - %s</string>
+    <string name="notifcation_title">CrypticVPN - %s</string>
     <string name="session_ipv4string">%1$s - %2$s</string>
     <string name="session_ipv6string">%1$s - %3$s, %2$s</string>
     <string name="state_connecting">Connecting</string>
@@ -498,5 +498,14 @@
     <string name="import_from_as">Import Profile from Access Server</string>
     <string name="no_default_vpn_set">Default VPN not set. Please set the Default VPN before enabling this option.</string>
     <string name="internal_web_view">Internal WebView</string>
+
+
+    <!--debug-->
+    <string name="unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="interstitial_unit_id">ca-app-pub-3940256099942544/1033173712</string>
+
+    <!--release-->
+    <!--    <string name="unit_id">ca-app-pub-3457511298730251/6932743938</string>
+         <string name="interstitial_unit_id">ca-app-pub-3457511298730251/5084932496</string>-->
 
 </resources>

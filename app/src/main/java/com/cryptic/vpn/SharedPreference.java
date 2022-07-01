@@ -9,7 +9,7 @@ import static com.cryptic.vpn.Utils.getImgURL;
 
 public class SharedPreference {
 
-    private static final String APP_PREFS_NAME = "CakeVPNPreference";
+    private static final String APP_PREFS_NAME = "CrypticVPNPreference";
 
     private SharedPreferences mPreference;
     private SharedPreferences.Editor mPrefEditor;

@@ -9,11 +9,11 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_foreground"
         android:label="@string/app_name"
         android:extractNativeLibs="true"
         tools:replace="android:extractNativeLibs"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_foreground"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.cryptic.vpn.view.MainActivity"
@@ -40,6 +40,13 @@
             <action android:name="android.net.VpnService" />
         </intent-filter>
     </service>
-
+        <!--debug-->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713" />
+        <!-- release-->
+        <!-- <meta-data
+             android:name="com.google.android.gms.ads.APPLICATION_ID"
+             android:value="ca-app-pub-3457511298730251~9770768068" />-->
     </application>
 </manifest>
