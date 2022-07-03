@@ -501,11 +501,10 @@
 
 
     <!--debug-->
-    <string name="unit_id">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="interstitial_unit_id">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="interstitial_unit_id">ca-app-pub-3940256099942544/1033173712</string>-->
 
     <!--release-->
-    <!--    <string name="unit_id">ca-app-pub-3457511298730251/6932743938</string>
-         <string name="interstitial_unit_id">ca-app-pub-3457511298730251/5084932496</string>-->
+
+     <!--    <string name="interstitial_unit_id">ca-app-pub-3457511298730251/8769737341</string>-->
 
 </resources>
